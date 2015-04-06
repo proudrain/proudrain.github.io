@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[proudrain's Log]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://proudrain.me/"/>
+  <updated>2015-04-05T19:37:39.000Z</updated>
+  <id>http://proudrain.me/</id>
+  
+  <author>
+    <name><![CDATA[proudrain]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[初识 React]]></title>
+    <link href="http://proudrain.me/2015/04/06/learn-react/"/>
+    <id>http://proudrain.me/2015/04/06/learn-react/</id>
+    <published>2015-04-05T16:10:30.000Z</published>
+    <updated>2015-04-05T19:37:39.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtY8cOR0-QdXjaaKoP03CEyskIGGoskdkEbBPC_UxyE349vQtQ" alt="React" title="React"><br><strong>React</strong> 是由 <em>Facebook</em> 出品的一个用于构建UI的前端框架。</p>
+<p>今天把 React 官方的 <a href="https://facebook.github.io/react/docs/tutorial.html" target="_blank" rel="external">tutorial</a> 过了一遍。以下是从 <em>tutorial</em> 中记录下来的一些 <em>points</em>。<br><a id="more"></a></p>
+<h2 id="Notes">Notes</h2><hr>
+<h3 id="React-createClass()">React.createClass()</h3><ul>
+<li>We pass some methods in a JavaScript object to <code>React.createClass()</code> to <strong>create a new React component</strong>. The most important of these methods is called <code>render</code> which returns a tree of React components that will eventually render to HTML.</li>
+</ul>
+<h3 id="HTML_tags_rewrite">HTML tags rewrite</h3><ul>
+<li><strong>The JSX compiler</strong> will automatically rewrite <strong>HTML tags</strong> to <code>React.createElement(tagName)</code> expressions and leave everything else alone. <em>This is to prevent the pollution of the global namespace.</em></li>
+</ul>
+<h3 id="this-props_-_immutable">this.props - immutable</h3><ul>
+<li><strong>Data passed in</strong> from a parent component is available as a <strong>‘property’</strong> on the child component. These ‘properties’ are accessed through <code>this.props</code>.</li>
+<li>We access <strong>named attributes</strong> passed to the component as keys on <code>this.props</code> and any <strong>nested elements</strong> as this.props.children.</li>
+</ul>
+<h3 id="A_backdoor">A backdoor</h3><ul>
+<li>This is <strong>a special API</strong> that intentionally makes it difficult to <strong>insert raw HTML</strong>, but for Showdown we’ll take advantage of this backdoor.<br><strong>Remember:</strong> by using this feature you’<strong>re relying on</strong> Showdown(or something else) <strong>to be secure</strong>.<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> converter = <span class="keyword">new</span> Showdown.converter();</span><br><span class="line">&#123;% raw %&#125;<span class="keyword">var</span> Comment = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> rawMarkup = converter.makeHtml(<span class="keyword">this</span>.props.children.toString());</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">            &lt;span dangerouslySetInnerHTML=&#123;&#123;__html: rawMarkup&#125;&#125; /&gt;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="this-state_-_mutable">this.state - mutable</h3><ul>
+<li><code>props</code> are <strong>immutable</strong>: they are passed from the parent and are “owned” by the parent. <code>this.**state**</code> is private to the component and <strong>can be changed</strong> by calling <code>this.setState()</code>. When the state is updated, the component <strong>re-renders</strong> itself.</li>
+<li><strong><code>getInitialState()</code></strong> executes exactly <strong>once</strong> during the lifecycle of the component and sets up the <strong>initial state</strong> of the component.</li>
+</ul>
+<h3 id="componentDidMount">componentDidMount</h3><ul>
+<li><strong><code>componentDidMount</code></strong> is a method called automatically by React <strong>when a component is rendered</strong>.</li>
+</ul>
+<h3 id="Events">Events</h3><ul>
+<li>React attaches <strong>event handlers</strong> to components using <strong>a camelCase naming</strong> convention.</li>
+</ul>
+<h3 id="Refs">Refs</h3><ul>
+<li>We use the <strong>ref</strong> attribute to assign a name to a child component and <code>this.refs</code> to reference the component. We can call <code>React.findDOMNode(component)</code> on a component to get the <strong>native</strong> browser DOM element.</li>
+</ul>
+<h3 id="Callbacks_as_props">Callbacks as props</h3><ul>
+<li>Sometimes we need to pass data <strong>from the child</strong> component <strong>back up to its parent</strong>. We do this in our <strong>parent’s render</strong> method by passing a new callback into the <strong>child</strong>, binding it to the <strong>child’s event</strong>. Whenever the event is triggered, the callback will be invoked:</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtY8cOR0-QdXjaaKoP03CEyskIGGoskdkEbBPC_UxyE349vQtQ" alt="React" title="React"><br><strong>React</strong> 是由 <em>Facebook</em> 出品的一个用于构建UI的前端框架。</p>
+<p>今天把 React 官方的 <a href="https://facebook.github.io/react/docs/tutorial.html">tutorial</a> 过了一遍。以下是从 <em>tutorial</em> 中记录下来的一些 <em>points</em>。<br>]]>
+    
+    </summary>
+    
+      <category term="React" scheme="http://proudrain.me/tags/React/"/>
+    
+      <category term="前端框架" scheme="http://proudrain.me/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="前端框架" scheme="http://proudrain.me/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Array.prototype.slice()在类数组对象下的调用]]></title>
+    <link href="http://proudrain.me/2015/02/25/call-slice-in-object/"/>
+    <id>http://proudrain.me/2015/02/25/call-slice-in-object/</id>
+    <published>2015-02-24T16:49:30.000Z</published>
+    <updated>2015-04-05T20:08:01.000Z</updated>
+    <content type="html"><![CDATA[<p>通过在类数组对象下调用<code>Array.prototype.slice()</code>，可以把其转换为货真价实的数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;<span class="number">0</span>: <span class="string">'a'</span>, <span class="number">1</span>: <span class="string">'b'</span>, <span class="number">2</span>: <span class="string">'c'</span>&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'length'</span>, &#123;</span><br><span class="line">    configurable: <span class="literal">false</span>,</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="number">3</span></span><br><span class="line">&#125;);     <span class="comment">//添加`length`属性</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.slice.call(o);     <span class="comment">// [a, b, c]</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="遵循一定的规则">遵循一定的规则</h3><ul>
+<li>根据<em>类数组对象</em> 的<code>length</code>属性值，值为多少则得到的数组有多少个元素。</li>
+<li>数组中特定下标的值对应对象中<em>以相应下标值为属性名的属性值</em>。<blockquote>
+<p>即在上例中，若<code>o = {1: a, 0: b, 3: c}</code> ，则得到的数组应是 <code>[b, a, ]</code>。</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>通过在类数组对象下调用<code>Array.prototype.slice()</code>，可以把其转换为货真价实的数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;<span class="number">0</span>: <span class="string">'a'</span>, <span class="number">1</span>: <span class="string">'b'</span>, <span class="number">2</span>: <span class="string">'c'</span>&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'length'</span>, &#123;</span><br><span class="line">    configurable: <span class="literal">false</span>,</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="number">3</span></span><br><span class="line">&#125;);     <span class="comment">//添加`length`属性</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.slice.call(o);     <span class="comment">// [a, b, c]</span></span><br></pre></td></tr></table></figure>]]>
+    
+    </summary>
+    
+      <category term="Array.prototype.slice()" scheme="http://proudrain.me/tags/Array-prototype-slice/"/>
+    
+      <category term="JavaScript" scheme="http://proudrain.me/tags/JavaScript/"/>
+    
+      <category term="类数组对象" scheme="http://proudrain.me/tags/%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/"/>
+    
+      <category term="JS学习笔记" scheme="http://proudrain.me/categories/JS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Ajax 跨域请求]]></title>
+    <link href="http://proudrain.me/2015/01/20/ajax-crossDomain/"/>
+    <id>http://proudrain.me/2015/01/20/ajax-crossDomain/</id>
+    <published>2015-01-20T10:13:28.000Z</published>
+    <updated>2015-04-05T20:08:37.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p><strong>AJAX</strong>进行跨域请求时的预检，如果是<em>复杂请求</em> (复杂请求的定义下面<strong>CORS</strong>的介绍中有提到)，需要向另外一个域名的资源发送一个<code>HTTP OPTIONS</code>请求头，用以判断实际发送的请求是否安全。</p>
+</blockquote>
+<ul>
+<li><strong>CORS</strong>(跨域资源共享)<br> <a href="http://www.linuxidc.com/Linux/2014-08/105709.htm" target="_blank" rel="external">http://www.linuxidc.com/Linux/2014-08/105709.htm</a></li>
+<li><strong>JSONP</strong><br> <a href="http://www.cnblogs.com/yuzhongwusan/archive/2012/12/11/2812849.html" target="_blank" rel="external">http://www.cnblogs.com/yuzhongwusan/archive/2012/12/11/2812849.html</a></li>
+<li>利用<em>Nginx</em> 或者<em>Apache</em> 的<strong>反向代理</strong>功能<br> <a href="http://blog.csdn.net/hfahe/article/details/5721320" target="_blank" rel="external">http://blog.csdn.net/hfahe/article/details/5721320</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p><strong>AJAX</strong>进行跨域请求时的预检，如果是<em>复杂请求</em> (复杂请求的定义下面<strong>CORS</strong>的介绍中有提到)，需要向另外一个域名的资源发送一个<code>HTTP OPTIONS<]]>
+    </summary>
+    
+      <category term="Ajax" scheme="http://proudrain.me/tags/Ajax/"/>
+    
+      <category term="CORS" scheme="http://proudrain.me/tags/CORS/"/>
+    
+      <category term="JSONP" scheme="http://proudrain.me/tags/JSONP/"/>
+    
+      <category term="JavaScript" scheme="http://proudrain.me/tags/JavaScript/"/>
+    
+      <category term="反向代理" scheme="http://proudrain.me/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
+    
+      <category term="JS学习笔记" scheme="http://proudrain.me/categories/JS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[正则表达式入门]]></title>
+    <link href="http://proudrain.me/2015/01/16/RegExp-notes/"/>
+    <id>http://proudrain.me/2015/01/16/RegExp-notes/</id>
+    <published>2015-01-16T09:48:55.000Z</published>
+    <updated>2015-04-05T20:34:16.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p><strong>正则表达式</strong>，又称<strong>正规表示法</strong>、<strong>常规表示法</strong>（Regular Expression，在代码中常简写为regex、regexp或RE）。<br>正则表达式使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。</p>
+</blockquote>
+<h2 id="元字符">元字符</h2><ul>
+<li><code>\b</code>是正则表达式规定的一个特殊代码（某些人叫它<strong>元字符</strong>，<em>metacharacter</em>），代表着单词的开头或结尾，也就是单词的分界处。<br> 更准确的说，<code>\b</code>匹配这样的位置：它的前一个字符和后一个字符不全是(一个是，一个不是或不存在)<code>\w</code>。</li>
+<li><code>.</code>是另一个元字符，匹配除了换行符以外的任意字符。</li>
+<li><code>*</code>同样是元字符，不过它代表的不是字符，也不是位置，而是数量——它指定<code>*</code>前边的内容可以连续重复使用任意次以使整个表达式得到匹配。</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><code>\d</code>同样是元字符，匹配一位数字(0，或1，或2，或……)。</li>
+<li><code>0\d{2}-\d{8}</code> 这里<code>\d</code>后面的<code>{2}</code>(<code>{8}</code>)的意思是前面<code>\d</code>必须连续重复匹配2次(8次)。</li>
+<li><code>\s</code>，元字符，匹配任意的空白符，包括空格，制表符(Tab)，换行符，中文全角空格等。</li>
+<li><code>\w</code>，元字符，匹配字母或数字或下划线或汉字等。</li>
+<li><code>\d+</code>匹配1个或更多连续的数字。这里的<code>+</code>是和<code>*</code>类似的元字符，不同的是<code>*</code>匹配重复任意次(可能是0次)，而<code>+</code>则匹配重复1次或更多次。</li>
+<li>元字符<code>^</code>（和数字6在同一个键位上的符号）和<code>$</code>都匹配一个位置，这和<code>\b</code>有点类似。<code>^</code>匹配你要用来查找的字符串的开头，<code>$</code>匹配结尾。</li>
+</ul>
+<h2 id="重复">重复</h2><ul>
+<li><code>^\d{5,12}$</code> 这里的<code>{5,12}</code>和上面的<code>{2}</code>是类似的，只不过<code>{2}</code>匹配只能不多不少重复2次，<code>{5,12}</code>则是重复的次数不能少于5次，不能多于12次，否则都不匹配。<blockquote>
+<p>如果不使用<code>^</code>和<code>$</code>的话，对于<code>\d{5,12}</code>而言，使用这样的方法就只能保证字符串里包含5到12连续位数字，而不是整个字符串就是5到12位数字。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="转义">转义</h2><ul>
+<li>使用<code>\</code>转义</li>
+</ul>
+<h2 id="字符类">字符类</h2><ul>
+<li>匹配没有预定义元字符的字符集合(比如元音字母a,e,i,o,u)，只需要在方括号里列出它们就行了，像<code>[aeiou]</code>就匹配任何一个英文元音字母，<code>[.?!]</code>匹配标点符号(.或?或!)。<br>也可以指定一个字符范围，像<code>[0-9]</code>代表的含意与<code>\d</code>就是完全一致的：一位数字；同理<code>[a-z0-9A-Z_]</code>也完全等同于<code>\w</code>（如果只考虑英文的话）。</li>
+</ul>
+<h2 id="分支条件">分支条件</h2><ul>
+<li>正则表达式里的<strong>分枝条件</strong>指的是有几种规则，如果满足其中任意一种规则都应该当成匹配，具体方法是用<code>|</code>把不同的规则分隔开。</li>
+<li>使用<strong>分枝条件</strong>时，要注意<strong>各个条件的顺序</strong>。原因是匹配分枝条件时，将会从左到右地测试每个条件，如果满足了某个分枝的话，就不会去再管其它的条件了。</li>
+</ul>
+<h2 id="分组">分组</h2><ul>
+<li>如何重复多个字符？可以用小括号来指定子表达式(也叫做<strong>分组</strong>)，然后你就可以指定这个子表达式的重复次数了，你也可以对子表达式进行其它一些操作。</li>
+</ul>
+<h2 id="反义">反义</h2><ul>
+<li>有时需要查找不属于某个能简单定义的字符类的字符。比如想查找除了数字以外，其它任意字符都行的情况，这时需要用到<strong>反义</strong>。</li>
+<li>如：<code>\W</code>匹配任意不是字母，数字，下划线，汉字的字符；<code>\S</code>匹配任意不是空白符的字符；<code>\B</code>匹配不是单词开头或结束的位置；<code>[^x]</code>匹配除了x以外的任意字符，等等。</li>
+</ul>
+<h2 id="后向引用">后向引用</h2><p>使用小括号指定一个子表达式后，<strong>匹配这个子表达式的文本</strong>(也就是此分组捕获的内容)可以在表达式或其它程序中作进一步的处理。默认情况下，每个分组会自动拥有一个组号，规则是：从左向右，以分组的左括号为标志，第一个出现的分组的组号为1，第二个为2，以此类推。</p>
+<ul>
+<li><strong>后向引用</strong>用于重复搜索前面某个分组匹配的文本。例如，<code>\1</code>代表分组1匹配的文本。</li>
+<li>也可以自己指定子表达式的组名。要指定一个子表达式的组名，请使用这样的语法：<code>(?&lt;Word&gt;\w+)</code>(或者把<code>&lt;&gt;</code>换成<code>&#39;</code>也行：<code>(?&#39;Word&#39;\w+)</code>)，这样就把<code>\w+</code>的组名指定为 <em>Word</em> 了。</li>
+</ul>
+<blockquote>
+<p>其实，组号分配还不像上面说得那么简单：</p>
+<ul>
+<li>分组0对应整个正则表达式。</li>
+<li>实际上组号分配过程是要从左向右扫描两遍的：第一遍只给未命名组分配，第二遍只给命名组分配－－因此所有命名组的组号都大于未命名的组号。</li>
+<li>你可以使用<code>(?:exp)</code>这样的语法来剥夺一个分组对组号分配的参与权。</li>
+</ul>
+</blockquote>
+<h2 id="零宽断言">零宽断言</h2><p>接下来的四个(包括负向零宽断言)用于查找在某些内容(但并不包括这些内容)之前或之后的东西，也就是说它们像<code>\b</code>,<code>^</code>,<code>$</code>那样用于指定一个位置，这个位置应该满足一定的条件(即<em>断言</em>)，因此它们也被称为<strong>零宽断言</strong>。</p>
+<ul>
+<li><code>(?=exp)</code>也叫<strong>零宽度正预测先行断言</strong>，它断言自身出现的位置的后面能匹配表达式<em>exp</em>。</li>
+<li><code>(?&lt;=exp)</code>也叫<strong>零宽度正回顾后发断言</strong>，它断言自身出现的位置的前面能匹配表达式<em>exp</em>。<blockquote>
+<p>断言用来声明一个应该为真的事实。正则表达式中只有当断言为真时才会继续进行匹配。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="负向零宽断言">负向零宽断言</h2><p>如果我们只是想要确保某个字符没有出现，但并不想去匹配它，可以使用<strong>负向零宽断言</strong>。因为它只匹配一个位置，并不消费任何字符。</p>
+<ul>
+<li><code>(?!exp)</code>也叫<strong>零宽度负预测先行断言</strong>，它断言此位置的后面不能匹配表达式<em>exp</em>。</li>
+<li><code>(?&lt;!exp)</code>也叫<strong>零宽度负回顾后发断言</strong>，它断言此位置的前面不能匹配表达式<em>exp</em>。</li>
+</ul>
+<h2 id="注释">注释</h2><ul>
+<li>小括号的另一种用途是通过语法<code>(?#comment)</code>来包含注释。<blockquote>
+<p>要包含注释的话，最好是启用 <em>“忽略模式里的空白符”</em> 选项，这样在编写表达式时能任意的添加空格，Tab，换行，而实际使用时这些都将被忽略。启用这个选项后，在<code>#</code>后面到这一行结束的所有文本都将被当成注释忽略掉。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="贪婪和懒惰">贪婪和懒惰</h2><ul>
+<li>当正则表达式中包含能接受重复的限定符时，通常的行为是（在使整个表达式能得到匹配的前提下）匹配<strong>尽可能多</strong>的字符。这被称为<strong>贪婪匹配</strong>。</li>
+<li>有时，我们更需要<strong>懒惰匹配</strong>，也就是匹配<strong>尽可能少</strong>的字符。前面给出的限定符都可以被转化为懒惰匹配模式，只要在它后面加上一个问号<code>?</code>。如：<code>*?</code>表示重复任意次，但尽可能少重复。<blockquote>
+<p>正则表达式有另一条规则，比懒惰／贪婪规则的优先级更高：最先开始的匹配拥有最高的优先权—— <em>The match that begins earliest wins</em>。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="平衡组/递归匹配">平衡组/递归匹配</h2><p>待续</p>
+<hr>
+<p><a href="url:http://www.jb51.net/tools/zhengze.html#mission" target="_blank" rel="external">详细解释及示例见原文地址</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p><strong>正则表达式</strong>，又称<strong>正规表示法</strong>、<strong>常规表示法</strong>（Regular Expression，在代码中常简写为regex、regexp或RE）。<br>正则表达式使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。</p>
+</blockquote>
+<h2 id="元字符">元字符</h2><ul>
+<li><code>\b</code>是正则表达式规定的一个特殊代码（某些人叫它<strong>元字符</strong>，<em>metacharacter</em>），代表着单词的开头或结尾，也就是单词的分界处。<br> 更准确的说，<code>\b</code>匹配这样的位置：它的前一个字符和后一个字符不全是(一个是，一个不是或不存在)<code>\w</code>。</li>
+<li><code>.</code>是另一个元字符，匹配除了换行符以外的任意字符。</li>
+<li><code>*</code>同样是元字符，不过它代表的不是字符，也不是位置，而是数量——它指定<code>*</code>前边的内容可以连续重复使用任意次以使整个表达式得到匹配。</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="正则表达式" scheme="http://proudrain.me/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+      <category term="正则表达式" scheme="http://proudrain.me/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Sublime Text 3 中Emmet的一点小配置]]></title>
+    <link href="http://proudrain.me/2014/12/06/st3-emmet/"/>
+    <id>http://proudrain.me/2014/12/06/st3-emmet/</id>
+    <published>2014-12-06T10:17:27.000Z</published>
+    <updated>2015-04-05T20:15:35.000Z</updated>
+    <content type="html"><![CDATA[<p>最近装上了<code>Sublime Text 3</code>这款编辑器，搭配上<code>Emmet</code>（原名Zen Coding）这个插件后简直就是前端神器了。关于它 <em>如何强大以及如何安装</em> 在此我就不赘述了。放个链接：<br><a href="http://www.iteye.com/news/27580" target="_blank" rel="external">Emmet功能介绍</a><br><a href="http://www.cnblogs.com/tinyphp/p/3217457.html" target="_blank" rel="external">Sublime Text 3中Emmet安装方法</a></p>
+<p>在这里主要来讲一下我安装好后碰到的几个配置问题。<br><a id="more"></a></p>
+<h2 id="自动生成的html的lang属性为”en”">自动生成的html的lang属性为”en”</h2><hr>
+<p>（想改的朋友先别急着按这里说的改，下面有合适的方法，参考文章目录2。这是我走的弯路- -）<br>由于这玩意是人家外国人开发出来的，自然<code>lang</code>要是<code>en</code>咯。不过没关系，我们可以自定义修改嘛。查了查，发现可以通过重写<code>emmet</code>扩展目录下的<code>snippet.json</code>（路径<code>..\Sublime Text 3\Data\Packages\Emmet\emmet</code>）来进行修改。打开文件，发现开头几行就是我们需要的啦<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"variables"</span><span class="symbol">:</span> &#123;</span><br><span class="line">	<span class="string">"lang"</span><span class="symbol">:</span> <span class="string">"en"</span>,		<span class="regexp">//</span>我们需要修改的就是这里将<span class="string">"en"</span>改为<span class="string">"zh-CN"</span></span><br><span class="line">	<span class="string">"locale"</span><span class="symbol">:</span> <span class="string">"en-US"</span>,</span><br><span class="line">	<span class="string">"charset"</span><span class="symbol">:</span> <span class="string">"UTF-8"</span>,</span><br><span class="line">	<span class="string">"indentation"</span><span class="symbol">:</span> <span class="string">"\t"</span>,</span><br><span class="line">	<span class="string">"newline"</span><span class="symbol">:</span> <span class="string">"\n"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里改好后，重新启动<code>Sublime Text 3</code>，输入<code>!</code>，再按<code>tab</code>键，出现了如下代码<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"zh-CN"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>OK！大功告成。<code>lang</code>的”en”<code>已经变成了</code>“zh-CN”`。</p>
+<h2 id="html的空元素自动完成缺少关闭斜杠">html的空元素自动完成缺少关闭斜杠</h2><hr>
+<p>等等。。好像发现了什么不对劲的地方，这个<code>&lt;meta&gt;</code>标签咋没有关闭标签的斜杠？！</p>
+<p>研究了下发现这是因为<code>html</code>本身对此的确没有严格要求，故默认的输出配置文件中采用的是没有关闭斜杠输出。尽管乍看之下问题不大，但是对于我这种追求完美外加强迫症患者这能忍吗？（ps：空元素带关闭斜杠真的是好习惯噢）</p>
+<p>答案是不能！于是我开始寻思着咋改。查了半天，发现与上面第一个问题类似，说可以重写<code>emmet</code>目录下的<code>syntaxProfiles.json</code>文件。我硬是来回看了几遍，发现我这文件夹里咋没有这个文件捏？没有就没有吧，自己新建个就得了咯（凭着多年折腾的经验与直觉…）。好的，文件建好，打开，写啥呢？<br>刚才前面说了是因为<code>html</code>本身对此没有严格要求，那<code>xhtml</code>可是严格要求了的啊，因此我们可以把<code>html</code>的生成方式改成<code>xhtml</code>。写入如下代码<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="regexp">//</span> <span class="constant">Enable XHTML </span>dialect <span class="keyword">for</span> <span class="constant">HTML </span>syntax</span><br><span class="line">	<span class="string">"html"</span><span class="symbol">:</span> <span class="string">"xhtml"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好，然后重启<code>Sublime Text 3</code>测试下。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>。。。为啥没有变化。。。。思前想后的过程中我又尝试多种修改，发现都无效。于是又上网各种查啊查。看到这么句话</p>
+<blockquote>
+<p>如果是st2我们可以重写 emmet 扩展目录下的snippets.json文件可实现snippets重写！但sublime text3重写方式不同于sublime text2，st3的重写方法是: package settings → emmet → settings-user ，这个菜单打开的实则是st3根目录下的Data\Packages\User\Emmet.sublime-settings</p>
+</blockquote>
+<p>瞬间明白了是什么情况。。原来<code>Sublime Text 3</code>的重写方试变了。（不过为啥上面第一个问题中对<code>snippets.json</code>的修改又是有效的呢？难道这种方式下只有原本在的文件有效吗？。。真是混乱，希望大手告知）</p>
+<p><strong>好的，重整旗鼓</strong>，来到<code>Data\Packages\User</code>目录下，发现又没有<code>Emmet.sublime-settings</code>这个文件。。不虚，继续新建！写入如下代码<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"syntaxProfiles"</span>: &#123;</span><br><span class="line">		<span class="comment">// Enable XHTML dialect for HTML syntax</span></span><br><span class="line">		html<span class="string">": "</span>xhtml<span class="string">"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>成功！</strong>空标签中终于有了关闭标签的斜杠，舒坦。。而且发现这次不需要重启直接生效了，这应该是<code>Sublime Text 3</code>带来的新特性吧（纯猜测，大神轻喷- -），因为之前重启才生效的修改方式是<code>st2</code>的。</p>
+<p>既然这边成功了，而且这边是用户自定义，那当然把上面<code>lang</code>的问题也拿到这来修改咯。该配置文件下最终代码如下：（这次我索性直接扔掉了<code>lang</code>属性，需要的朋友还是可以留着；同时这里对于第二个问题提供了另一种效果一样的写法，就是只修改<code>self_closing_tag</code>这一个键值，上面的<code>html&quot;: &quot;xhtml&quot;</code>也是可以的）<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123;</span><br><span class="line">	<span class="string">"snippets"</span>: <span class="collection">&#123;</span><br><span class="line">		//设置lang属性为zh-CN</span><br><span class="line">		//<span class="string">"variables"</span>: <span class="collection">&#123;</span><br><span class="line">		//	<span class="string">"lang"</span>: <span class="string">"zh-CN"</span></span><br><span class="line">		//&#125;</span>,</span><br><span class="line"></span><br><span class="line">		//去掉lang属性</span><br><span class="line">		<span class="string">"html"</span>: <span class="collection">&#123;</span><br><span class="line">			<span class="string">"abbreviations"</span>: <span class="collection">&#123;</span><br><span class="line">				<span class="string">"html:5"</span>: <span class="string">"!!!+doc"</span>	</span><br><span class="line">			&#125;</span></span><br><span class="line">		&#125;</span></span><br><span class="line">	&#125;</span>,</span><br><span class="line"></span><br><span class="line">	<span class="string">"syntaxProfiles"</span>: <span class="collection">&#123;</span><br><span class="line">		// Enable XHTML dialect for HTML syntax</span><br><span class="line">		<span class="string">"html"</span>: <span class="collection">&#123;</span><br><span class="line">			<span class="string">"self_closing_tag"</span>: <span class="string">"xhtml"</span></span><br><span class="line">		&#125;</span></span><br><span class="line">	&#125;</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>配置好后，新建一个html文件，输入<code>!</code>然后 <em>tab</em> ，得到以下html代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>搞定！</p>
+<h2 id="总结">总结</h2><hr>
+<p><code>Sublime Text 3</code>中插件Emmet的自定义配置是在<code>Data\Packages\User\Emmet.sublime-settings</code>该文件中，没有该文件的可以自行创建。配置的格式可以参考<code>Data\Packages\Emmet\Emmet.sublime-settings</code>以及<code>Data\Packages\Emmet\emmet\snippets.json</code>这两个文件。</p>
+<h2 id="参考资料">参考资料</h2><hr>
+<p><a href="http://www.cnblogs.com/matchless/archive/2013/04/15/3021671.html" target="_blank" rel="external">【翻译】Emmet(Zen Coding)官方文档 之六 自定义 Emmet</a><br><a href="http://docs.emmet.io/customization/syntax-profiles/" target="_blank" rel="external">Emmet官方文档 — syntaxProfiles.json</a><br><a href="http://www.phpvar.com/archives/2919.html" target="_blank" rel="external">Emmet自定义/重写代码段：snippets.json</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近装上了<code>Sublime Text 3</code>这款编辑器，搭配上<code>Emmet</code>（原名Zen Coding）这个插件后简直就是前端神器了。关于它 <em>如何强大以及如何安装</em> 在此我就不赘述了。放个链接：<br><a href="http://www.iteye.com/news/27580">Emmet功能介绍</a><br><a href="http://www.cnblogs.com/tinyphp/p/3217457.html">Sublime Text 3中Emmet安装方法</a></p>
+<p>在这里主要来讲一下我安装好后碰到的几个配置问题。<br>]]>
+    
+    </summary>
+    
+      <category term="Emmet" scheme="http://proudrain.me/tags/Emmet/"/>
+    
+      <category term="Sublime Text 3" scheme="http://proudrain.me/tags/Sublime-Text-3/"/>
+    
+      <category term="snippets" scheme="http://proudrain.me/tags/snippets/"/>
+    
+      <category term="syntaxProfiles" scheme="http://proudrain.me/tags/syntaxProfiles/"/>
+    
+      <category term="空元素关闭斜杠" scheme="http://proudrain.me/tags/%E7%A9%BA%E5%85%83%E7%B4%A0%E5%85%B3%E9%97%AD%E6%96%9C%E6%9D%A0/"/>
+    
+      <category term="编辑器配置" scheme="http://proudrain.me/categories/%E7%BC%96%E8%BE%91%E5%99%A8%E9%85%8D%E7%BD%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[由addLoadEvent引出的一点疑惑]]></title>
+    <link href="http://proudrain.me/2014/11/24/addloadevent/"/>
+    <id>http://proudrain.me/2014/11/24/addloadevent/</id>
+    <published>2014-11-24T06:29:13.000Z</published>
+    <updated>2015-04-05T20:05:41.000Z</updated>
+    <content type="html"><![CDATA[<p>最近跟着书上敲了一个小实例（JS图片库）。代码如下：</p>
+<p><strong>html部分</strong>（css部分省略）：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"content-type"</span> <span class="attribute">content</span>=<span class="value">"text/html;charset=UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">href</span>=<span class="value">"css/gallery.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Image Gallery<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Snapshots<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"img_list"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"images/whiteHat.jpg"</span> <span class="attribute">title</span>=<span class="value">"一顶白帽子"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/whiteHat.jpg"</span> <span class="attribute">alt</span>=<span class="value">"WhiteHat"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"images/Toushirou.jpg"</span> <span class="attribute">title</span>=<span class="value">"日番谷冬狮郎"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/Toushirou.jpg"</span> <span class="attribute">alt</span>=<span class="value">"Toushirou"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"images/theV.jpg"</span> <span class="attribute">title</span>=<span class="value">"V字仇杀队"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/theV.jpg"</span> <span class="attribute">alt</span>=<span class="value">"theV"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"images/shanringan.jpg"</span> <span class="attribute">title</span>=<span class="value">"永恒万花筒"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/shanringan.jpg"</span> <span class="attribute">alt</span>=<span class="value">"Shanringan"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>        </span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"js/showPic.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<hr>
+<p><strong>JavaScript部分：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//gallery.js</span></span><br><span class="line"><span class="comment">/*******************通用函数*****************/</span></span><br><span class="line"><span class="comment">//insertAfter()</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertAfter</span><span class="params">(newElement, targetElement)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> parent = targetElement.parentNode;</span><br><span class="line">    <span class="keyword">if</span> (parent.lastChild == targetElement) &#123;</span><br><span class="line">        parent.appendChild(newElement);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        parent.insertBefore(newElement, targetElement.nextSibling);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//onload function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addLoadEvent</span><span class="params">(func)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> oldonload = <span class="built_in">window</span>.onload;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span>(<span class="built_in">window</span>.onload) != <span class="string">"function"</span>) &#123;</span><br><span class="line">        <span class="built_in">window</span>.onload = func;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            oldonload();</span><br><span class="line">            func();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="comment">//onload function</span></span><br><span class="line"><span class="comment">/***********************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">preparePlaceholder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.createElement) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.createTextNode) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> placeholder = <span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</span><br><span class="line">    placeholder.setAttribute(<span class="string">"id"</span>, <span class="string">"placeholder"</span>);</span><br><span class="line">    placeholder.setAttribute(<span class="string">"src"</span>, <span class="string">"images/placeholder.gif"</span>);</span><br><span class="line">    placeholder.setAttribute(<span class="string">"alt"</span>, <span class="string">"my image gallery"</span>);</span><br><span class="line">    <span class="keyword">var</span> description = <span class="built_in">document</span>.createElement(<span class="string">"p"</span>);</span><br><span class="line">    description.setAttribute(<span class="string">"id"</span>, <span class="string">"description"</span>);</span><br><span class="line">    <span class="keyword">var</span> desctext = <span class="built_in">document</span>.createTextNode(<span class="string">"Choose a image."</span>);</span><br><span class="line">    description.appendChild(desctext);</span><br><span class="line">    <span class="keyword">var</span> imglist = <span class="built_in">document</span>.getElementById(<span class="string">"img_list"</span>);</span><br><span class="line">    <span class="keyword">if</span> (!imglist) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    insertAfter(placeholder, imglist);</span><br><span class="line">    insertAfter(description, placeholder);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareGallery</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;    </span><br><span class="line">    <span class="keyword">var</span> list = <span class="built_in">document</span>.getElementById(<span class="string">"img_list"</span>);</span><br><span class="line">    <span class="keyword">if</span> (!list) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> links = list.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;links.length; i++) &#123;</span><br><span class="line">        links[i].onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> !showPic(<span class="keyword">this</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showPic</span><span class="params">(whichpic)</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> source = whichpic.href;</span><br><span class="line">    <span class="keyword">var</span> placeholder = <span class="built_in">document</span>.getElementById(<span class="string">"placeholder"</span>);</span><br><span class="line">    <span class="keyword">if</span> (!placeholder) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (placeholder.nodeName != <span class="string">"IMG"</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    placeholder.src = source;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.getElementById(<span class="string">"description"</span>)) &#123;</span><br><span class="line">        <span class="keyword">var</span> text = whichpic.getAttribute(<span class="string">"title"</span>) ? whichpic.getAttribute(<span class="string">"title"</span>) : <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">var</span> description = <span class="built_in">document</span>.getElementById(<span class="string">"description"</span>);</span><br><span class="line">        <span class="keyword">if</span> (description.firstChild.nodeType == <span class="number">3</span>) &#123;</span><br><span class="line">            description.firstChild.nodeValue = text;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addLoadEvent(preparePlaceholder);</span><br><span class="line">addLoadEvent(prepareGallery);        <span class="comment">//为什么这两个交换顺序后没有影响？</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>我们的关注点可以来到<strong>上述代码的最后两行</strong>。通过 <em>addLoadEvent函数</em> 将两个定义好的函数相继绑定到 <em>window.onload事件</em> 上。这两行代码效果上应该是等同于以下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    preparePlaceholder();</span><br><span class="line">    prepareGallery();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么问题就来了。正如上面代码我注释中写的，为什么这两行代码交换顺序后没有任何影响？按道理第二个函数，也就是 <em>prepareGallery</em> 应该是对由 <em>preparePlaceholder</em> 构造出来的DOM对象进行了操作的。那么为什么操作在相应的DOM对象构造完成之前也能生效？</p>
+<p>但是我认为 <em>addLoadEvent</em> 调用的顺序肯定是有影响的。为了验证设想，写了如下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/************测试addLoadEvent调用顺序的影响*************/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">construct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> para = <span class="built_in">document</span>.createElement(<span class="string">"p"</span>);</span><br><span class="line">    para.setAttribute(<span class="string">"id"</span>,<span class="string">"testpara"</span>);</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(para);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">operate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> txt = <span class="built_in">document</span>.createTextNode(<span class="string">"No problem?"</span>);</span><br><span class="line">    <span class="keyword">var</span> testpara = <span class="built_in">document</span>.getElementById(<span class="string">"testpara"</span>);</span><br><span class="line">    <span class="keyword">if</span> (!testpara) &#123;</span><br><span class="line">        alert(<span class="string">"Not found testpara!"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    testpara.appendChild(txt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addLoadEvent(construct); <span class="comment">//此调用顺序下页面显示正常</span></span><br><span class="line">addLoadEvent(operate);    <span class="comment">//交换顺序后出现弹窗"Not found testpara"，并且页面无法正常显示</span></span><br></pre></td></tr></table></figure></p>
+<p>结果如上代码注释中所说。所以说明对 <em>addLoadEvent</em> 调用的原理的确就像前面说的那样。</p>
+<p>思考良久，由于 <em>prepareGallery</em> 并未直接操作那几个DOM对象，而是通过调用 <em>showPic函数</em> 进行的操作，是不是因为这个有什么影响？这可能涉及到了JS函数实现上的原理问题，由于笔者对JS原理上的很多东西还没有深入学习，故现在也给不出合理的结论。<br>待日后有了结论再来这篇博文上做个总结吧。</p>
+<p>———————————-分割线—————————————————————-<br>时隔两三天，突然发现自己智商捉急了。。今天不小心又仔细的看了一下上面的代码。发现 <em>prepareGallery函数</em> 里压根就不会操作由 <em>preparePlaceholder</em> 创建的DOM对象，尽管函数体里看起来好像有调用 <em>showPic函数</em> 的这么一句话：<code>links[i].onclick = function() { return !showPic(this); };</code>(line:54)。但是这压根就是把一个匿名函数绑定到了这个 <em>onclick事件</em> 上嘛，只有在点击的时候才会触发调用 <em>showPic函数</em> 额。</p>
+<p>所以可以<strong>总结</strong>了：<em>addLoadEvent</em> ，不管是从他的定义还是实践，都可以得到结论：多个函数的调用顺序就是等同于调用 <em>addLoadEvent</em> 将其追加到 <em>window.onload</em> 的顺序。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[最近跟着书上敲了一个小实例（JS图片库）。其中写了一个 addLoadEvent 函数，用来给 window.onload 事件绑定多个函数。]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://proudrain.me/tags/JavaScript/"/>
+    
+      <category term="addLoadEvent" scheme="http://proudrain.me/tags/addLoadEvent/"/>
+    
+      <category term="window.onload" scheme="http://proudrain.me/tags/window-onload/"/>
+    
+      <category term="JS学习笔记" scheme="http://proudrain.me/categories/JS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[由window.onload引出的小笑话]]></title>
+    <link href="http://proudrain.me/2014/11/24/window-onload/"/>
+    <id>http://proudrain.me/2014/11/24/window-onload/</id>
+    <published>2014-11-23T16:16:40.000Z</published>
+    <updated>2015-04-05T20:16:24.000Z</updated>
+    <content type="html"><![CDATA[<p>前言：最近开始学习的Javascript，由于之前学习的C++语法比较严谨，所以这一下子对于JS语法的很多地方都有点难接受。。对于函数这一块也是搞的连之前的一些概念都混了- -</p>
+<p>这两天看到<em>window.onload</em>这个事件。如果只要单纯绑定一个函数到这个事件上的话，可以这么写：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function <span class="func"><span class="keyword">func</span><span class="params">()</span></span> &#123; <span class="comment">/*函数内容*/</span> &#125;</span><br><span class="line">window.onload = <span class="func"><span class="keyword">func</span>;</span><br><span class="line">//此处使用<span class="title">console</span>.<span class="title">log</span><span class="params">(window.onload)</span></span>输出的结果将是<span class="func"><span class="keyword">func</span>函数的内容</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>由于对于JS函数这一块的不清晰，我就想，如果赋值的时候像下面这样带括号会怎么呢？<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window.onload = <span class="func"><span class="keyword">func</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//此处使用console.log输出的则是null</span></span><br></pre></td></tr></table></figure></p>
+<p>发现<em>console.log</em>给出的结果是<em>null</em>，于是我认为JS这里和C++没什么分别，带了括号则表明立即调用函数，此处则是以<em>func函数</em>的返回值赋值，但是由于<em>onload</em>期待的是一个<em>function类型</em>，所以并不会赋值成功，<em>window.onload</em>值将为<em>null</em>。（并不是因为<em>func函数</em>没有返回值。此处即便<em>func函数</em>有返回值，<em>window.onload</em>值仍是<em>null</em>）</p>
+<p>但是让我不解的是，进行这个修改后，引入该js文件的页面显示正常，并没有由于<em>func函数</em>的绑定失败导致页面显示出错。于是我又干脆删掉这条代码查看页面，发现显示不正常了。<br>于是乎给了我一种尽管<em>window.onload</em>值为<em>null</em>但<em>func函数</em>仍然绑定成功了的错觉。。。</p>
+<p>想了半天突然发现<strong>在执行赋值语句的时候，既然是以函数返回值赋值，那函数肯定是调用了的啊！</strong>顿时恍然大悟。。<br>其实<em>window.onload = func();</em>这条代码等于就是<strong>执行了该函数然后进行赋值（赋值失败）</strong>。因为删掉该代码后函数并未执行，页面当然显示不正常。至于为什么这么写页面也能正常显示，原因可能是由于该页面的内容不多，<em>DOM</em>文档中的必要内容赶在了函数执行之前加载完了。</p>
+<p><strong>结论</strong>：</p>
+<ol>
+<li>在为事件指定函数引用，也就是为事件绑定函数时，不要在函数名后面加括号。加括号表示立即调用函数，而绑定操作是要将函数自身的引用（而不是函数结果）赋值。</li>
+<li><em>window.onload</em>赋值需要<em>function类型</em>，否则赋值失败（值为null）。</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>前言：最近开始学习的Javascript，由于之前学习的C++语法比较严谨，所以这一下子对于JS语法的很多地方都有点难接受。。对于函数这一块也是搞的连之前的一些概念都混了- -</p>
+<p>这两天看到<em>window.onload</em>这个事件。如果只要单纯绑定一个函数到这个事件上的话，可以这么写：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function <span class="func"><span class="keyword">func</span><span class="params">()</span></span> &#123; <span class="comment">/*函数内容*/</span> &#125;</span><br><span class="line">window.onload = <span class="func"><span class="keyword">func</span>;</span><br><span class="line">//此处使用<span class="title">console</span>.<span class="title">log</span><span class="params">(window.onload)</span></span>输出的结果将是<span class="func"><span class="keyword">func</span>函数的内容</span></span><br></pre></td></tr></table></figure></p>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://proudrain.me/tags/JavaScript/"/>
+    
+      <category term="window.onload" scheme="http://proudrain.me/tags/window-onload/"/>
+    
+      <category term="函数引用" scheme="http://proudrain.me/tags/%E5%87%BD%E6%95%B0%E5%BC%95%E7%94%A8/"/>
+    
+      <category term="JS学习笔记" scheme="http://proudrain.me/categories/JS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[关于js中configurable属性的一点发现]]></title>
+    <link href="http://proudrain.me/2014/11/22/js-configurable/"/>
+    <id>http://proudrain.me/2014/11/22/js-configurable/</id>
+    <published>2014-11-22T07:55:40.000Z</published>
+    <updated>2015-04-05T20:12:02.000Z</updated>
+    <content type="html"><![CDATA[<p>该发现出自<em>《JavaScript高级程序设计（第二版）》</em>，P140。</p>
+<p>该小节是在讨论<strong>数据属性</strong>相关的内容，数据属性可以通过<em>Object.defineProperty()</em>方法进行修改。<br>其中对于的<em>configurable</em>属性，有一段原文：</p>
+<blockquote>
+<p>“一旦把属性定义为不可配置的，故就不能再把它变回可配置了。此时，再调用<em>Object.defineProprerty()</em>方法修改除<em>writable</em>之外的特性，都会导致错误。”</p>
+</blockquote>
+<a id="more"></a>
+<p>对于前半句话没有什么异议。但后半句的意思应该是：<em>configurable</em>改成’false’后，其它的属性都无法修改，除了<em>writable</em>属性，并没有详细说明writable可修改值。</p>
+<p>实测中发现该情况下，<em>writable</em>只能改为’false’，不管<em>writable</em>开始是什么值。测试代码如下<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="dartdoc"><span class="markdown">/<span class="strong">****属性类型-数据属性 Object.defineProperty**</span>**/</span></span></span><br><span class="line"><span class="keyword">var</span> person = [];</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(person, <span class="string">"name"</span>, &#123;</span><br><span class="line">	configurable: <span class="keyword">false</span>,   <span class="comment">//之后无法再次通过defineProperty修改，除了writable属性之外</span></span><br><span class="line"> 	writable: <span class="keyword">true</span>,</span><br><span class="line">	value: <span class="string">"proudRain"</span></span><br><span class="line">&#125;);</span><br><span class="line">alert(person.name);		<span class="comment">//proudRain</span></span><br><span class="line">person.name = <span class="string">"lyhproud1"</span></span><br><span class="line">alert(person.name);		<span class="comment">//lyhproud1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(person, <span class="string">"name"</span>, &#123;</span><br><span class="line">	writable: <span class="keyword">false</span>			<span class="comment">//此处只能将writable设为false，若设置true则直接报错</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">person.name = <span class="string">"lyhproud2"</span>;</span><br><span class="line">alert(person.name);		<span class="comment">//lyhproud1</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>总结</strong>：<em>configurable</em>属性设为’false’后，除了<em>writable</em>属性之外都无法再修改（包括<em>configurable</em>本身，意味着一个数据属性被定义为不可配置修改后无法改回可配置），且<em>writable</em>只能修改为<em>false</em>（不管之前是什么值）。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>该发现出自<em>《JavaScript高级程序设计（第二版）》</em>，P140。</p>
+<p>该小节是在讨论<strong>数据属性</strong>相关的内容，数据属性可以通过<em>Object.defineProperty()</em>方法进行修改。<br>其中对于的<em>configurable</em>属性，有一段原文：</p>
+<blockquote>
+<p>“一旦把属性定义为不可配置的，故就不能再把它变回可配置了。此时，再调用<em>Object.defineProprerty()</em>方法修改除<em>writable</em>之外的特性，都会导致错误。”</p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://proudrain.me/tags/JavaScript/"/>
+    
+      <category term="JavaScript高级程序设计" scheme="http://proudrain.me/tags/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
+    
+      <category term="configurable" scheme="http://proudrain.me/tags/configurable/"/>
+    
+      <category term="defineProperty()" scheme="http://proudrain.me/tags/defineProperty/"/>
+    
+      <category term="writable" scheme="http://proudrain.me/tags/writable/"/>
+    
+      <category term="JS学习笔记" scheme="http://proudrain.me/categories/JS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[初次搭hexo的一点经验]]></title>
+    <link href="http://proudrain.me/2014/11/19/first-blood/"/>
+    <id>http://proudrain.me/2014/11/19/first-blood/</id>
+    <published>2014-11-19T07:48:12.000Z</published>
+    <updated>2015-04-05T20:10:02.000Z</updated>
+    <content type="html"><![CDATA[<p>小白一枚，搭了这个博客，真是折腾的够厉害的。</p>
+<p>一路也是按着网上的教程来的，教程大部分地方讲的都没问题，但是对于我这种初次搭这种博客也是初次用git的人来说，网上的教程里有几个点还是没讲到，下面我就把对于我们这种纯新手缺少的那几点说一下，也好给后面来的朋友们一个借鉴。</p>
+<a id="more"></a>
+<h2 id="环境变量">环境变量</h2><hr>
+<p><em>git</em>的客户端，<em>nodejs</em>装好之后可能会需要配置一下系统的环境变量。如果你在<em>git bash</em>中使用<code>node -v</code>、<code>npm</code>这些命令时，提示<code>command not found</code>，可以尝试添加一下环境变量。<br><strong>git</strong>：添加 <code>F:\Git\bin; F:\Git\libexec\git-core</code> (F:处写你自己安装的路径)<br><strong>nodejs</strong>：添加 <code>F:\nodejs</code><br><strong>hexo</strong>: 添加 <code>F:\nodejs\node_modules\.bin</code><br>具体如何<a href="http://www.cppblog.com/woaidongmao/archive/2011/04/27/145151.html" target="_blank" rel="external">添加环境变量</a></p>
+<h2 id="解析模板文件">解析模板文件</h2><hr>
+<p>在<em>hexo</em>装好并已经配置好，打开页面发现无法解析模板文件，页面显示类似如下这种:<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="preprocessor">%</span>- partial<span class="comment">('_partial/head')</span> <span class="preprocessor">%</span>&gt;</span><br><span class="line">&lt;<span class="preprocessor">%</span>- partial<span class="comment">('_partial/header')</span> <span class="preprocessor">%</span>&gt;</span><br><span class="line">&lt;<span class="preprocessor">%</span>- body <span class="preprocessor">%</span>&gt;</span><br><span class="line">&lt;<span class="preprocessor">%</span> <span class="keyword">if</span> <span class="comment">(theme.sidebar &amp;&amp; theme.sidebar !== 'bottom')</span>&#123; <span class="preprocessor">%</span>&gt; &lt;<span class="preprocessor">%</span>- partial<span class="comment">('_partial/sidebar')</span> <span class="preprocessor">%</span>&gt; &lt;<span class="preprocessor">%</span> &#125; <span class="preprocessor">%</span>&gt;</span><br><span class="line">&lt;<span class="preprocessor">%</span>- partial<span class="comment">('_partial/footer')</span> <span class="preprocessor">%</span>&gt;</span><br><span class="line">&lt;<span class="preprocessor">%</span>- partial<span class="comment">('_partial/mobile-nav')</span> <span class="preprocessor">%</span>&gt; &lt;<span class="preprocessor">%</span>- partial<span class="comment">('_partial/after-footer')</span> <span class="preprocessor">%</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>网上搜索发现是因为高版本的<em>hexo</em>移除默认的<em>ejs</em>等，所以需要手动安装。<br>可以在<em>hexo</em>目录下执行以下命令进行安装：<br>(有的说在工程目录下，本人比较菜，没明白工程目录是哪个目录。。求指点。实测该目录安装有效)<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="operator"><span class="keyword">install</span> hexo-renderer-ejs <span class="comment">--save</span></span><br><span class="line">$ npm <span class="keyword">install</span> hexo-renderer-stylus <span class="comment">--save</span></span><br><span class="line">$ npm <span class="keyword">install</span> hexo-renderer-marked <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="总结">总结</h2><hr>
+<p>以上就是在这次搭建过程中遇到的比较麻烦的问题（其实也不算麻烦- -主要是网上各教程中未涉及的），之后的朋友发现有什么新问题也可以来交流交流。</p>
+<h2 id="参考文献">参考文献</h2><hr>
+<ul>
+<li><a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">hexo你的博客</a></li>
+<li><a href="http://zipperary.com/categories/hexo/" target="_blank" rel="external">hexo系列教程</a></li>
+<li><a href="http://blog.csdn.net/liu251/article/details/40148645" target="_blank" rel="external">Hexo git blog install issue</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>小白一枚，搭了这个博客，真是折腾的够厉害的。</p>
+<p>一路也是按着网上的教程来的，教程大部分地方讲的都没问题，但是对于我这种初次搭这种博客也是初次用git的人来说，网上的教程里有几个点还是没讲到，下面我就把对于我们这种纯新手缺少的那几点说一下，也好给后面来的朋友们一个借鉴。</p>]]>
+    
+    </summary>
+    
+      <category term="ejs解析" scheme="http://proudrain.me/tags/ejs%E8%A7%A3%E6%9E%90/"/>
+    
+      <category term="hexo" scheme="http://proudrain.me/tags/hexo/"/>
+    
+      <category term="环境变量" scheme="http://proudrain.me/tags/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"/>
+    
+      <category term="Hexo经验" scheme="http://proudrain.me/categories/Hexo%E7%BB%8F%E9%AA%8C/"/>
+    
+  </entry>
+  
+</feed>
