@@ -20,9 +20,9 @@
 
 
 
-	<meta name="keywords" content="Emmet,Sublime Text 3,snippets,syntaxProfiles,空元素关闭斜杠," />
+	<meta name="keywords" content="React,前端框架," />
 
-  <title> Sublime Text 3 中Emmet的一点小配置 // proudrain's Log </title>
+  <title> Thinking in React // proudrain's Log </title>
 </head>
 
 <body>
@@ -116,7 +116,7 @@
           
           
             
-              Sublime Text 3 中Emmet的一点小配置
+              Thinking in React
             
           
         </h1>
@@ -125,7 +125,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            Posted on 2014-12-06
+            Posted on 2015-04-07
           
         </span>
 
@@ -134,7 +134,7 @@
             <span class="post-category">
               &nbsp; | &nbsp; In
               
-                <a href="/categories/编辑器配置/">编辑器配置</a>
+                <a href="/categories/前端框架/">前端框架</a>
 
                 
                 
@@ -148,8 +148,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/12/06/st3-emmet/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/12/06/st3-emmet/"></span>
+            <a href="/2015/04/07/thinking-in-react/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/04/07/thinking-in-react/"></span>
             </a>
           </span>
           
@@ -164,32 +164,41 @@
         
 
         
-          <p>最近装上了<code>Sublime Text 3</code>这款编辑器，搭配上<code>Emmet</code>（原名Zen Coding）这个插件后简直就是前端神器了。关于它 <em>如何强大以及如何安装</em> 在此我就不赘述了。放个链接：<br><a href="http://www.iteye.com/news/27580" target="_blank" rel="external">Emmet功能介绍</a><br><a href="http://www.cnblogs.com/tinyphp/p/3217457.html" target="_blank" rel="external">Sublime Text 3中Emmet安装方法</a></p>
-<p>在这里主要来讲一下我安装好后碰到的几个配置问题。<br><a id="more"></a></p>
-<h2 id="自动生成的html的lang属性为”en”">自动生成的html的lang属性为”en”</h2><hr>
-<p>（想改的朋友先别急着按这里说的改，下面有合适的方法，参考文章目录2。这是我走的弯路- -）<br>由于这玩意是人家外国人开发出来的，自然<code>lang</code>要是<code>en</code>咯。不过没关系，我们可以自定义修改嘛。查了查，发现可以通过重写<code>emmet</code>扩展目录下的<code>snippet.json</code>（路径<code>..\Sublime Text 3\Data\Packages\Emmet\emmet</code>）来进行修改。打开文件，发现开头几行就是我们需要的啦<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"variables"</span><span class="symbol">:</span> &#123;</span><br><span class="line">	<span class="string">"lang"</span><span class="symbol">:</span> <span class="string">"en"</span>,		<span class="regexp">//</span>我们需要修改的就是这里将<span class="string">"en"</span>改为<span class="string">"zh-CN"</span></span><br><span class="line">	<span class="string">"locale"</span><span class="symbol">:</span> <span class="string">"en-US"</span>,</span><br><span class="line">	<span class="string">"charset"</span><span class="symbol">:</span> <span class="string">"UTF-8"</span>,</span><br><span class="line">	<span class="string">"indentation"</span><span class="symbol">:</span> <span class="string">"\t"</span>,</span><br><span class="line">	<span class="string">"newline"</span><span class="symbol">:</span> <span class="string">"\n"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里改好后，重新启动<code>Sublime Text 3</code>，输入<code>!</code>，再按<code>tab</code>键，出现了如下代码<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"zh-CN"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>OK！大功告成。<code>lang</code>的”en”<code>已经变成了</code>“zh-CN”`。</p>
-<h2 id="html的空元素自动完成缺少关闭斜杠">html的空元素自动完成缺少关闭斜杠</h2><hr>
-<p>等等。。好像发现了什么不对劲的地方，这个<code>&lt;meta&gt;</code>标签咋没有关闭标签的斜杠？！</p>
-<p>研究了下发现这是因为<code>html</code>本身对此的确没有严格要求，故默认的输出配置文件中采用的是没有关闭斜杠输出。尽管乍看之下问题不大，但是对于我这种追求完美外加强迫症患者这能忍吗？（ps：空元素带关闭斜杠真的是好习惯噢）</p>
-<p>答案是不能！于是我开始寻思着咋改。查了半天，发现与上面第一个问题类似，说可以重写<code>emmet</code>目录下的<code>syntaxProfiles.json</code>文件。我硬是来回看了几遍，发现我这文件夹里咋没有这个文件捏？没有就没有吧，自己新建个就得了咯（凭着多年折腾的经验与直觉…）。好的，文件建好，打开，写啥呢？<br>刚才前面说了是因为<code>html</code>本身对此没有严格要求，那<code>xhtml</code>可是严格要求了的啊，因此我们可以把<code>html</code>的生成方式改成<code>xhtml</code>。写入如下代码<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="regexp">//</span> <span class="constant">Enable XHTML </span>dialect <span class="keyword">for</span> <span class="constant">HTML </span>syntax</span><br><span class="line">	<span class="string">"html"</span><span class="symbol">:</span> <span class="string">"xhtml"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>好，然后重启<code>Sublime Text 3</code>测试下。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>。。。为啥没有变化。。。。思前想后的过程中我又尝试多种修改，发现都无效。于是又上网各种查啊查。看到这么句话</p>
-<blockquote>
-<p>如果是st2我们可以重写 emmet 扩展目录下的snippets.json文件可实现snippets重写！但sublime text3重写方式不同于sublime text2，st3的重写方法是: package settings → emmet → settings-user ，这个菜单打开的实则是st3根目录下的Data\Packages\User\Emmet.sublime-settings</p>
-</blockquote>
-<p>瞬间明白了是什么情况。。原来<code>Sublime Text 3</code>的重写方试变了。（不过为啥上面第一个问题中对<code>snippets.json</code>的修改又是有效的呢？难道这种方式下只有原本在的文件有效吗？。。真是混乱，希望大手告知）</p>
-<p><strong>好的，重整旗鼓</strong>，来到<code>Data\Packages\User</code>目录下，发现又没有<code>Emmet.sublime-settings</code>这个文件。。不虚，继续新建！写入如下代码<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"syntaxProfiles"</span>: &#123;</span><br><span class="line">		<span class="comment">// Enable XHTML dialect for HTML syntax</span></span><br><span class="line">		html<span class="string">": "</span>xhtml<span class="string">"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>测试下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>成功！</strong>空标签中终于有了关闭标签的斜杠，舒坦。。而且发现这次不需要重启直接生效了，这应该是<code>Sublime Text 3</code>带来的新特性吧（纯猜测，大神轻喷- -），因为之前重启才生效的修改方式是<code>st2</code>的。</p>
-<p>既然这边成功了，而且这边是用户自定义，那当然把上面<code>lang</code>的问题也拿到这来修改咯。该配置文件下最终代码如下：（这次我索性直接扔掉了<code>lang</code>属性，需要的朋友还是可以留着；同时这里对于第二个问题提供了另一种效果一样的写法，就是只修改<code>self_closing_tag</code>这一个键值，上面的<code>html&quot;: &quot;xhtml&quot;</code>也是可以的）<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123;</span><br><span class="line">	<span class="string">"snippets"</span>: <span class="collection">&#123;</span><br><span class="line">		//设置lang属性为zh-CN</span><br><span class="line">		//<span class="string">"variables"</span>: <span class="collection">&#123;</span><br><span class="line">		//	<span class="string">"lang"</span>: <span class="string">"zh-CN"</span></span><br><span class="line">		//&#125;</span>,</span><br><span class="line"></span><br><span class="line">		//去掉lang属性</span><br><span class="line">		<span class="string">"html"</span>: <span class="collection">&#123;</span><br><span class="line">			<span class="string">"abbreviations"</span>: <span class="collection">&#123;</span><br><span class="line">				<span class="string">"html:5"</span>: <span class="string">"!!!+doc"</span>	</span><br><span class="line">			&#125;</span></span><br><span class="line">		&#125;</span></span><br><span class="line">	&#125;</span>,</span><br><span class="line"></span><br><span class="line">	<span class="string">"syntaxProfiles"</span>: <span class="collection">&#123;</span><br><span class="line">		// Enable XHTML dialect for HTML syntax</span><br><span class="line">		<span class="string">"html"</span>: <span class="collection">&#123;</span><br><span class="line">			<span class="string">"self_closing_tag"</span>: <span class="string">"xhtml"</span></span><br><span class="line">		&#125;</span></span><br><span class="line">	&#125;</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>配置好后，新建一个html文件，输入<code>!</code>然后 <em>tab</em> ，得到以下html代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>搞定！</p>
-<h2 id="总结">总结</h2><hr>
-<p><code>Sublime Text 3</code>中插件Emmet的自定义配置是在<code>Data\Packages\User\Emmet.sublime-settings</code>该文件中，没有该文件的可以自行创建。配置的格式可以参考<code>Data\Packages\Emmet\Emmet.sublime-settings</code>以及<code>Data\Packages\Emmet\emmet\snippets.json</code>这两个文件。</p>
-<h2 id="参考资料">参考资料</h2><hr>
-<p><a href="http://www.cnblogs.com/matchless/archive/2013/04/15/3021671.html" target="_blank" rel="external">【翻译】Emmet(Zen Coding)官方文档 之六 自定义 Emmet</a><br><a href="http://docs.emmet.io/customization/syntax-profiles/" target="_blank" rel="external">Emmet官方文档 — syntaxProfiles.json</a><br><a href="http://www.phpvar.com/archives/2919.html" target="_blank" rel="external">Emmet自定义/重写代码段：snippets.json</a></p>
+          <p>前两天已经大致的认识了 <em>React</em>，过了一遍官方的 <a href="https://facebook.github.io/react/docs/tutorial.html" target="_blank" rel="external">tutorial</a>，今天继续 <strong>Thinking in React</strong> 。</p>
+<p><a href="https://facebook.github.io/react/docs/thinking-in-react.html" target="_blank" rel="external">Let’s start with a mock!</a> 看完后可以回来过一遍要点。</p>
+<a id="more"></a>
+<h2 id="Step_1:_break_the_UI_into_a_component_hierarchy">Step 1: break the UI into a component hierarchy</h2><ul>
+<li><strong>How do you know what should be its own component?</strong> Just use the <strong>same techniques</strong> for deciding if you should create a new function or object. One such technique is the <strong>single responsibility principle</strong>, that is, a component should ideally only do one thing.</li>
+<li>Just break it up into components that represent exactly one piece of your data model.</li>
+</ul>
+<h2 id="Step_2:_Build_a_static_version_in_React">Step 2: Build a static version in React</h2><ul>
+<li>To build a static version of your app that renders your data model you’ll want to build components that reuse other components and pass data using <strong>props</strong>.</li>
+<li><strong>Don’t use state</strong> at all to build this static version. State is reserved only for interactivity, that is, data that changes over time. Since this is a static version of the app you don’t need it.</li>
+<li>You can build <strong>top-down</strong> or <strong>bottom-up</strong>. In <em>simpler examples</em> it’s usually easier to go top-down and on <em>larger projects</em> it’s easier to go bottom-up and write tests as you build.</li>
+</ul>
+<h2 id="Step_3:_Identify_the_minimal_(but_complete)_representation_of_UI_state">Step 3: Identify the minimal (but complete) representation of UI state</h2><ul>
+<li>To make your UI interactive you need to be able to trigger changes to your underlying data model. React makes this easy with <strong>state</strong>.</li>
+<li>To build your app correctly you first need to think of the <strong>minimal set</strong> of mutable state that your app needs. The key here is DRY: <em>Don’t Repeat Yourself</em>. Figure out what the absolute minimal representation of the state of your application needs to be and compute everything else you need on-demand. </li>
+<li>To figure out <strong>which one is state</strong>, simply ask three questions about each piece of data:<ol>
+<li>Is it passed in from a parent via props? If so, it probably isn’t state.</li>
+<li>Does it change over time? If not, it probably isn’t state.</li>
+<li>Can you compute it based on any other state or props in your component? If so, it’s not state.</li>
+</ol>
+</li>
+</ul>
+<h2 id="Step_4:_Identify_where_your_state_should_live">Step 4: Identify where your state should live</h2><ul>
+<li>For each piece of state in your application:<ul>
+<li>Identify every component that renders something <strong>based on</strong> that state.</li>
+<li>Find a <strong>common owner</strong> component (a single component above all the components that need the state in the hierarchy).</li>
+<li>Either the common owner or <strong>another component higher up</strong> in the hierarchy should own the state.</li>
+<li>If you can’t find a component where it makes sense to own the state, <strong>create a new component</strong> simply for holding the state and add it somewhere in the hierarchy <strong>above</strong> the common owner component.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Step_5:_Add_inverse_data_flow">Step 5: Add inverse data flow</h2><ul>
+<li>React provides an add-on called <code>ReactLink</code> to make this pattern as convenient as two-way binding.</li>
+<li>Pass a <strong>callback</strong>.</li>
+</ul>
 
         
       </div>
@@ -200,24 +209,12 @@
         
           <div class="post-tags">
             
-              <a href="/tags/Emmet/">
-                #Emmet
+              <a href="/tags/React/">
+                #React
               </a>
             
-              <a href="/tags/Sublime-Text-3/">
-                #Sublime Text 3
-              </a>
-            
-              <a href="/tags/snippets/">
-                #snippets
-              </a>
-            
-              <a href="/tags/syntaxProfiles/">
-                #syntaxProfiles
-              </a>
-            
-              <a href="/tags/空元素关闭斜杠/">
-                #空元素关闭斜杠
+              <a href="/tags/前端框架/">
+                #前端框架
               </a>
             
           </div>
@@ -227,13 +224,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2015/01/16/RegExp-notes/">正则表达式入门</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2014/11/24/addloadevent/">由addLoadEvent引出的一点疑惑</a>
+                <a href="/2015/04/06/learn-react/">初识 React</a>
               
             </div>
           </div>
@@ -365,7 +360,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自动生成的html的lang属性为”en”"><span class="nav-number">1.</span> <span class="nav-text">自动生成的html的lang属性为”en”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#html的空元素自动完成缺少关闭斜杠"><span class="nav-number">2.</span> <span class="nav-text">html的空元素自动完成缺少关闭斜杠</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step_1:_break_the_UI_into_a_component_hierarchy"><span class="nav-number">1.</span> <span class="nav-text">Step 1: break the UI into a component hierarchy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step_2:_Build_a_static_version_in_React"><span class="nav-number">2.</span> <span class="nav-text">Step 2: Build a static version in React</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step_3:_Identify_the_minimal_(but_complete)_representation_of_UI_state"><span class="nav-number">3.</span> <span class="nav-text">Step 3: Identify the minimal (but complete) representation of UI state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step_4:_Identify_where_your_state_should_live"><span class="nav-number">4.</span> <span class="nav-text">Step 4: Identify where your state should live</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step_5:_Add_inverse_data_flow"><span class="nav-number">5.</span> <span class="nav-text">Step 5: Add inverse data flow</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -938,8 +933,8 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'rainslog';
-      var disqus_identifier = '2014/12/06/st3-emmet/';
-      var disqus_url = 'http://proudrain.me/2014/12/06/st3-emmet/';
+      var disqus_identifier = '2015/04/07/thinking-in-react/';
+      var disqus_url = 'http://proudrain.me/2015/04/07/thinking-in-react/';
 
       (function(){
         var dsq = document.createElement('script');

@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://proudrain.me/"/>
-  <updated>2015-04-06T08:23:22.000Z</updated>
+  <updated>2015-04-07T16:01:04.000Z</updated>
   <id>http://proudrain.me/</id>
   
   <author>
@@ -13,6 +13,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Thinking in React]]></title>
+    <link href="http://proudrain.me/2015/04/07/thinking-in-react/"/>
+    <id>http://proudrain.me/2015/04/07/thinking-in-react/</id>
+    <published>2015-04-07T15:45:16.000Z</published>
+    <updated>2015-04-07T16:01:04.000Z</updated>
+    <content type="html"><![CDATA[<p>前两天已经大致的认识了 <em>React</em>，过了一遍官方的 <a href="https://facebook.github.io/react/docs/tutorial.html" target="_blank" rel="external">tutorial</a>，今天继续 <strong>Thinking in React</strong> 。</p>
+<p><a href="https://facebook.github.io/react/docs/thinking-in-react.html" target="_blank" rel="external">Let’s start with a mock!</a> 看完后可以回来过一遍要点。</p>
+<a id="more"></a>
+<h2 id="Step_1:_break_the_UI_into_a_component_hierarchy">Step 1: break the UI into a component hierarchy</h2><ul>
+<li><strong>How do you know what should be its own component?</strong> Just use the <strong>same techniques</strong> for deciding if you should create a new function or object. One such technique is the <strong>single responsibility principle</strong>, that is, a component should ideally only do one thing.</li>
+<li>Just break it up into components that represent exactly one piece of your data model.</li>
+</ul>
+<h2 id="Step_2:_Build_a_static_version_in_React">Step 2: Build a static version in React</h2><ul>
+<li>To build a static version of your app that renders your data model you’ll want to build components that reuse other components and pass data using <strong>props</strong>.</li>
+<li><strong>Don’t use state</strong> at all to build this static version. State is reserved only for interactivity, that is, data that changes over time. Since this is a static version of the app you don’t need it.</li>
+<li>You can build <strong>top-down</strong> or <strong>bottom-up</strong>. In <em>simpler examples</em> it’s usually easier to go top-down and on <em>larger projects</em> it’s easier to go bottom-up and write tests as you build.</li>
+</ul>
+<h2 id="Step_3:_Identify_the_minimal_(but_complete)_representation_of_UI_state">Step 3: Identify the minimal (but complete) representation of UI state</h2><ul>
+<li>To make your UI interactive you need to be able to trigger changes to your underlying data model. React makes this easy with <strong>state</strong>.</li>
+<li>To build your app correctly you first need to think of the <strong>minimal set</strong> of mutable state that your app needs. The key here is DRY: <em>Don’t Repeat Yourself</em>. Figure out what the absolute minimal representation of the state of your application needs to be and compute everything else you need on-demand. </li>
+<li>To figure out <strong>which one is state</strong>, simply ask three questions about each piece of data:<ol>
+<li>Is it passed in from a parent via props? If so, it probably isn’t state.</li>
+<li>Does it change over time? If not, it probably isn’t state.</li>
+<li>Can you compute it based on any other state or props in your component? If so, it’s not state.</li>
+</ol>
+</li>
+</ul>
+<h2 id="Step_4:_Identify_where_your_state_should_live">Step 4: Identify where your state should live</h2><ul>
+<li>For each piece of state in your application:<ul>
+<li>Identify every component that renders something <strong>based on</strong> that state.</li>
+<li>Find a <strong>common owner</strong> component (a single component above all the components that need the state in the hierarchy).</li>
+<li>Either the common owner or <strong>another component higher up</strong> in the hierarchy should own the state.</li>
+<li>If you can’t find a component where it makes sense to own the state, <strong>create a new component</strong> simply for holding the state and add it somewhere in the hierarchy <strong>above</strong> the common owner component.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Step_5:_Add_inverse_data_flow">Step 5: Add inverse data flow</h2><ul>
+<li>React provides an add-on called <code>ReactLink</code> to make this pattern as convenient as two-way binding.</li>
+<li>Pass a <strong>callback</strong>.</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>前两天已经大致的认识了 <em>React</em>，过了一遍官方的 <a href="https://facebook.github.io/react/docs/tutorial.html">tutorial</a>，今天继续 <strong>Thinking in React</strong> 。</p>
+<p><a href="https://facebook.github.io/react/docs/thinking-in-react.html">Let’s start with a mock!</a> 看完后可以回来过一遍要点。</p>]]>
+    
+    </summary>
+    
+      <category term="React" scheme="http://proudrain.me/tags/React/"/>
+    
+      <category term="前端框架" scheme="http://proudrain.me/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="前端框架" scheme="http://proudrain.me/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[初识 React]]></title>
